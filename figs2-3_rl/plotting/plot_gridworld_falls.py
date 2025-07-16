@@ -7,7 +7,17 @@ import matplotlib.pyplot as plt
 
 TRAIN_STEPS = 10000
 NUM_SEEDS = 10
-PATH = 'results/GridExp/'
+
+import argparse
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--path", default='results/GridExp/', help="Path to data directory. should be 'results/...'")
+    args = parser.parse_args()
+
+    PATH = args.path
+
+# PATH = 'results/GridExp/'
 
 falls_qrdqn = []
 falls_riskneutral = []

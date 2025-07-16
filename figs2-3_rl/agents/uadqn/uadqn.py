@@ -22,39 +22,39 @@ from agents.common.utils import quantile_huber_loss
 class UADQN:
     """
     # Required parameters
-    env : Environment to use.
-    network : Choice of neural network.
+    `env` :     Environment to use.
+    `network` : Choice of neural network.
 
     # Environment parameter
-    gamma : Discount factor
+    `gamma` : Discount factor
 
     # Replay buffer
-    replay_start_size : The capacity of the replay buffer at which training can begin.
-    replay_buffer_size : Maximum buffer capacity.
+    `replay_start_size` :   The capacity of the replay buffer at which training can begin.
+    `replay_buffer_size` :  Maximum buffer capacity.
 
     # QR-DQN parameters
-    n_quantiles: Number of quantiles to estimate
-    kappa: Smoothing parameter for the Huber loss
-    weight_scale: scale of prior neural network weights at initialization
-    noise_scale: scale of aleatoric noise
-    epistemic_factor: multiplier for epistemic uncertainty used for Thompson sampling
-    aleatoric_factor: maulitplier for aleatoric uncertainty, used to adjust mean Q values
-    update_target_frequency: Frequency at which target network is updated
-    minibatch_size : Minibatch size.
-    update_frequency : Number of environment steps taken between parameter update steps.
-    learning_rate : Learning rate used for the Adam optimizer
-    seed : The global seed to set.  None means randomly selected.
-    adam_epsilon: Epsilon parameter for Adam optimizer
-    biased_aleatoric: whether to use empirical std of quantiles as opposed to unbiased estimator
+    `n_quantiles`:              Number of quantiles to estimate
+    `kappa`:                    Smoothing parameter for the Huber loss
+    `weight_scale`:             scale of prior neural network weights at initialization
+    `noise_scale`:              scale of aleatoric noise
+    `epistemic_factor`:         multiplier for epistemic uncertainty used for Thompson sampling
+    `aleatoric_factor`:         maulitplier for aleatoric uncertainty, used to adjust mean Q values
+    `update_target_frequency`:  Frequency at which target network is updated
+    `minibatch_size` :          Minibatch size.
+    `update_frequency` :        Number of environment steps taken between parameter update steps.
+    `learning_rate` :           learning rate used for the Adam optimizer
+    `seed` :                    The global seed to set.  None means randomly selected.
+    `adam_epsilon`:             Epsilon parameter for Adam optimizer
+    `biased_aleatoric`:         whether to use empirical std of quantiles as opposed to unbiased estimator
 
     # Logging and Saving
-    logging : Whether to create logs when training
-    log_folder_details : Additional information to put into the name of the log folder
-    save_period : Periodicity with which the network weights are checkpointed
-    notes : Notes to add to the log folder
+    `logging` :             Whether to create logs when training
+    `log_folder_details` :  Additional information to put into the name of the log folder
+    `save_period` :         Periodicity with which the network weights are checkpointed
+    `notes` :               Notes to add to the log folder
 
     # Rendering
-    render : Whether to render the environment during training. This slows down training.
+    `render` : Whether to render the environment during training. This slows down training.
     """
 
     def __init__(
@@ -292,8 +292,8 @@ class UADQN:
         loss = self.loss(q_value.squeeze(), td_target.squeeze(), self.device, kappa=self.kappa)
 
         # Calculate predictions of posterior networks
-        posterior1 = self.posterior1(states.float())
-        posterior1 = posterior1.view(self.minibatch_size, self.env.action_space.n, self.n_quantiles)
+        posterior1 = self.posterior1(states.float()) # (batch_size * action_space * n_quantiles, )
+        posterior1 = posterior1.view(self.minibatch_size, self.env.action_space.n, self.n_quantiles) # (batch_size, action_space, n_quantiles)
         posterior1 = posterior1.gather(1, actions)
 
         posterior2 = self.posterior2(states.float())

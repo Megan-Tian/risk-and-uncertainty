@@ -1,0 +1,28 @@
+{'Notes': 'Height: 2, Width: 5, Wind Prob: 0.05, Fall reward: 0, Success '
+          'reward: 10',
+ 'adam_epsilon': 1e-08,
+ 'aleatoric_factor': 0.5,
+ 'biased_aleatoric': False,
+ 'env': '<environments.gridworld.Gridworld object at 0x7faea6fee550>',
+ 'epistemic_factor': 2,
+ 'gamma': 1,
+ 'learning_rate': 0.002,
+ 'minibatch_size': 64,
+ 'n_quantiles': 50,
+ 'network': 'MLP(\n'
+            '  (layers): Sequential(\n'
+            '    (0): Linear(in_features=11, out_features=100, bias=True)\n'
+            '    (1): ReLU()\n'
+            '    (2): Linear(in_features=100, out_features=100, bias=True)\n'
+            '    (3): ReLU()\n'
+            '    (4): Linear(in_features=100, out_features=200, bias=True)\n'
+            '  )\n'
+            ')',
+ 'noise_scale': 1,
+ 'replay_buffer_size': 10000,
+ 'replay_start_size': 500,
+ 'seed': 383622,
+ 'train_steps': 10000,
+ 'update_frequency': 1,
+ 'update_target_frequency': 100,
+ 'weight_scale': 3}
